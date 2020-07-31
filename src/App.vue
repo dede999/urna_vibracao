@@ -3,23 +3,19 @@
     <Header />
     <div class="columns is-desktop">
       <div class="column">
-        <button @click="option = 1">
-          Encarnados
-        </button>
+        <button @click="option = 1">Encarnados</button>
       </div>
       <div class="column">
-        <button @click="option = 2">
-          Desencarnados
-        </button>
+        <button @click="option = 2">Desencarnados</button>
       </div>
       <div class="column">
-        <button @click="option = 3">
-          Lares/Empresas
-        </button>
+        <button @click="option = 3">Lares/Empresas</button>
       </div>
     </div>
     <div class="forms">
-      <LivingForm v-show="option === 1" />
+      <LivingForm v-if="option === 1" />
+      <DeadForm v-show="option === 2" />
+      <PlacesForm v-show="option === 3" />
     </div>
   </div>
 </template>
@@ -28,6 +24,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import Header from "./components/Header.vue";
 import LivingForm from "./components/LivingForm.vue";
+import DeadForm from "./components/DeadForm.vue";
+import PlacesForm from "./components/PlacesForm.vue";
 
 enum Options {
   Living = 1,
@@ -38,19 +36,13 @@ enum Options {
 @Component({
   components: {
     Header,
-    LivingForm
+    LivingForm,
+    DeadForm,
+    PlacesForm
   }
 })
 export default class App extends Vue {
   private option: Options = Options.Living;
-
-  private selector_class = (identifier: Options): string => {
-    return identifier === this.option ? "is_active" : "";
-  };
-
-  get livingClass(): string {
-    return this.selector_class(1);
-  }
 }
 </script>
 
@@ -72,21 +64,29 @@ export default class App extends Vue {
 }
 
 .columns {
-  padding-top: 30px;
+  padding: 25px 0;
   display: flex;
   left: 5%;
   justify-content: space-around;
   .column {
+    width: 20%;
+    height: 50px;
     border: 3px solid #35681b;
+    position: relative;
     button {
+      color: #35681b;
+      font-size: 30px;
+      font-weight: 400;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
       border: 0;
       background-color: inherit;
       font-family: inherit;
     }
-  }
-  .is_active {
-    background-color: #6fe23e;
-    font-weight: 600;
   }
 }
 </style>

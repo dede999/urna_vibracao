@@ -1,13 +1,11 @@
 <template>
-
+  <h1>Lugares</h1>
 </template>
 
 <script>
 export default {
-name: "Places"
-}
+  name: "Places"
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
