@@ -87,7 +87,7 @@ export default class LivingForm extends Vue {
     remember: false
   };
 
-  private empty_data = () => {
+  private emptyData = () => {
     return {
       name: "",
       age: 0,
@@ -100,7 +100,7 @@ export default class LivingForm extends Vue {
 
   private submitPrayer = () => {
     store.livingArray.insert(this.livingData);
-    this.livingData = this.empty_data();
+    this.livingData = this.emptyData();
   };
 
   get living() {
