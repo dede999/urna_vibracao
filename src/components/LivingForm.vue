@@ -2,7 +2,7 @@
   <div class="form">
     <form @submit.prevent="submitPrayer">
       <div class="name field">
-        <label class="label">Nome Completo </label>
+        <label class="label">Nome Completo</label>
         <div class="control">
           <input class="input" type="text" v-model="livingData.name" />
         </div>
@@ -58,8 +58,8 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Validation from "../Validations";
-import Prayer from "@/classes/Prayer";
 import Table from "@/components/Table.vue";
+import store from "@/store";
 
 const { isNotEmpty, isValidEmail } = Validation;
 
@@ -86,10 +86,9 @@ export default class LivingForm extends Vue {
     message: "",
     remember: false
   };
-  private living: Prayer = new Prayer("living");
 
   private empty_data = () => {
-    this.livingData = {
+    return {
       name: "",
       age: 0,
       address: "",
@@ -100,13 +99,13 @@ export default class LivingForm extends Vue {
   };
 
   private submitPrayer = () => {
-    this.living.insert(this.livingData);
-    this.empty_data();
+    store.livingArray.insert(this.livingData);
+    this.livingData = this.empty_data();
   };
 
-  private removePlayer = (index: number) => {
-    this.living.remove(index);
-  };
+  get living() {
+    return store.livingArray.retrieve();
+  }
 
   get enableSubmit(): boolean {
     const { name, email, address } = this.livingData;

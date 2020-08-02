@@ -35,5 +35,7 @@ export default class Prayer {
     this.setLocalStorage();
   }
 
-  public retrieve = () => this.prayerRepo;
+  public retrieve(): PrayerData[] {
+    return this.prayerRepo;
+  }
 }
